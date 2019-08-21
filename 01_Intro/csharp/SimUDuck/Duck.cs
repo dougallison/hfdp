@@ -4,8 +4,8 @@ namespace SimUDuck
 {
     public abstract class Duck
     {
-        protected IFlyBehavior FlyBehavior;
-        protected IQuackBehavior QuackBehavior;
+        protected IFlyBehavior _flyBehavior;
+        protected IQuackBehavior _quackBehavior;
 
         protected Duck() { }
 
@@ -24,6 +24,18 @@ namespace SimUDuck
         public void Swim()
         {
             Console.WriteLine("All ducks float, even decoys!");
+        }
+
+        public IFlyBehavior FlyBehavior
+        {
+            get => _flyBehavior;
+            set => _flyBehavior = value;
+        }
+
+        public IQuackBehavior QuackBehavior
+        {
+            get => _quackBehavior;
+            set => _quackBehavior = value;
         }
     }
 }
