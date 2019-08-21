@@ -45,10 +45,12 @@
   <ItemGroup>
     <Compile Include="Duck.cs" />
     <Compile Include="FlyNoWay.cs" />
+    <Compile Include="FlyRocketPowered.cs" />
     <Compile Include="FlyWithWings.cs" />
     <Compile Include="IFlyBehavior.cs" />
     <Compile Include="IQuackBehavior.cs" />
     <Compile Include="MallardDuck.cs" />
+    <Compile Include="ModelDuck.cs" />
     <Compile Include="MuteQuack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
