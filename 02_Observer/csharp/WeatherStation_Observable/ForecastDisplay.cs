@@ -2,7 +2,7 @@
 
 namespace WeatherStation
 {
-    internal class ForecastDisplay : IObserver<WeatherData>
+    internal class ForecastDisplay : IObserver<WeatherData>, IDisplayElement
     {
         private const double Tolerance = 0.001f;
 
@@ -30,35 +30,40 @@ namespace WeatherStation
             LastPressure = CurrentPressure;
             CurrentPressure = value.Pressure;
 
-            Console.Write("Forecast: ");
+            const string leader = "Forecast: ";
             if (CurrentPressure > LastPressure)
             {
-                Console.WriteLine("Improving weather on the way!");
+                Display($"{leader}Improving weather on the way!");
             }
             else if (Math.Abs(CurrentPressure - LastPressure) < Tolerance)
             {
-                Console.WriteLine("More of the same");
+                Display($"{leader}More of the same");
             }
             else
             {
-                Console.WriteLine("Watch out for cooler, rainy weather");
+                Display($"{leader}Watch out for cooler, rainy weather");
             }
         }
 
         public void OnError(Exception error)
         {
-            Console.WriteLine("Forecast cannot be determined.");
+            Display("Forecast cannot be determined.");
         }
 
         public void OnCompleted()
         {
-            Console.WriteLine($"Weather station has completed transmitting data to {nameof(ForecastDisplay)}.");
+            Display($"Weather station has completed transmitting data to {nameof(ForecastDisplay)}.");
             Unsubscribe();
         }
 
         private void Unsubscribe()
         {
             Unsubscriber.Dispose();
+        }
+
+        public void Display(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

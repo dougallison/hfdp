@@ -2,6 +2,6 @@
 {
     interface IDisplayElement
     {
-        void Display();
+        void Display(string message);
     }
 }

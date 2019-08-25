@@ -2,7 +2,7 @@
 
 namespace WeatherStation
 {
-    internal class StatisticsDisplay : IObserver<WeatherData>
+    internal class StatisticsDisplay : IObserver<WeatherData>, IDisplayElement
     {
         private double MaxTemperature { get; set; }
 
@@ -42,23 +42,28 @@ namespace WeatherStation
                 MinTemperature = value.Temperature;
             }
 
-            Console.WriteLine($"Avg/Max/Min temperature = {TemperatureSum / CountOfReadings}/{MaxTemperature}/{MinTemperature}");
+            Display($"Avg/Max/Min temperature = {TemperatureSum / CountOfReadings}/{MaxTemperature}/{MinTemperature}");
         }
 
         public void OnError(Exception error)
         {
-            Console.WriteLine("Statistics cannot be calculated.");
+            Display("Statistics cannot be calculated.");
         }
 
         public void OnCompleted()
         {
-            Console.WriteLine($"Weather station has completed transmitting data to {nameof(StatisticsDisplay)}.");
+            Display($"Weather station has completed transmitting data to {nameof(StatisticsDisplay)}.");
             Unsubscribe();
         }
 
         private void Unsubscribe()
         {
             Unsubscriber.Dispose();
+        }
+
+        public void Display(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

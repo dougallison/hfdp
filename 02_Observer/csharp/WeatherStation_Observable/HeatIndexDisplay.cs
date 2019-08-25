@@ -2,7 +2,7 @@
 
 namespace WeatherStation
 {
-    internal class HeatIndexDisplay : IObserver<WeatherData>
+    internal class HeatIndexDisplay : IObserver<WeatherData>, IDisplayElement
     {
         private IDisposable Unsubscriber { get; set; }
 
@@ -16,17 +16,17 @@ namespace WeatherStation
 
         public void OnNext(WeatherData value)
         {
-            Console.WriteLine($"Heat index is {ComputeHeatIndex(value.Temperature, value.Humidity):N1}");
+            Display($"Heat index is {ComputeHeatIndex(value.Temperature, value.Humidity):N1}");
         }
 
         public void OnError(Exception error)
         {
-            Console.WriteLine("Heat index cannot be calculated.");
+            Display("Heat index cannot be calculated.");
         }
 
         public void OnCompleted()
         {
-            Console.WriteLine($"Weather station has completed transmitting data to {nameof(HeatIndexDisplay)}.");
+            Display($"Weather station has completed transmitting data to {nameof(HeatIndexDisplay)}.");
             Unsubscribe();
         }
 
@@ -46,6 +46,11 @@ namespace WeatherStation
                                  0.000000000843296 * (t * t * rh * rh * rh)) -
                                 (0.0000000000481975 * (t * t * t * rh * rh * rh)));
             return index;
+        }
+
+        public void Display(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }
