@@ -7,8 +7,6 @@ namespace WeatherStation
     {
         private List<IObserver<WeatherData>> Observers { get; }
 
-        //private readonly List<IObserver<WeatherData>> _observers;
-
         public WeatherStation()
         {
             Observers = new List<IObserver<WeatherData>>();
